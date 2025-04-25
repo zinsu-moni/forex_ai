@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from utils.telegram_bot import send_telegram_message
 from model.predictor import predict_action
 from data.fetcher import get_latest_data
+import os
 
 app = Flask(__name__)
 
@@ -21,4 +22,5 @@ def home():
     return render_template("index.html", pairs=currency_pairs, signal=signal, selected_pair=selected_pair)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
